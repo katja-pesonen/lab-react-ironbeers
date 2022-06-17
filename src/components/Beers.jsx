@@ -10,21 +10,27 @@ const useStyles = createStyles(() => ({image: {width: '120px', '&:hover': {paddi
 
 function Beers() {
     const [beers, setBeers] = useState([])
+    const [isFetching, setIsFetching] = useState(true)
     const navigate = useNavigate()
 
     const {classes} = useStyles()
 
-    const fetchBeers = async(setter) => {
+    const fetchBeers = async() => {
         const response = await fetch(`${API_BEER_URL}/beers`)
         const parsed = await response.json()
-        setter(parsed)
+        setBeers(parsed)
+        setIsFetching(false)
     }
 
     useEffect(() => {
+        if (isFetching) {
         fetchBeers(setBeers)
-    }, [])
+        }
+    }, [isFetching])
 
-  return (
+  return isFetching ? ( 
+    <h1>Loading...</h1> 
+  ) : (
     <div>
 <Navbar />
      <h2>List of Beers</h2>
