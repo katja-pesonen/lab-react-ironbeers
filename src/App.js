@@ -21,7 +21,6 @@ function App() {
        </div>
      </nav>
 
-     <Beers beers={beers} />
 
 <Routes>
   <Route path="/" element={ <Home />} />
